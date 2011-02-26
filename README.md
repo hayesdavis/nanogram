@@ -21,7 +21,7 @@ Here's the general idea:
     # Setup some sanitizing rules:
     # Downcase text, replace punctuation with space and strip whitepsace from the ends
     tokenizer.sanitizer.downcase.gsub(/[^a-z0-9']/,' ').strip
-    # Add some stop words (using [infochimps stopwords file](http://www.infochimps.com/datasets/list-of-english-stopwords))
+    # Add some stop words (using file from http://www.infochimps.com/datasets/list-of-english-stopwords)
     tokenizer.filters << Nanogram::Filters::StopWords.load("english_stopwords.tsv")
     # And filter out 1 character words
     tokenizer.filters << Nanogram::Filters::Proc.new{|text| text.length == 1}
