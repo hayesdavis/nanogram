@@ -7,28 +7,27 @@ clean up some text, filter out some stop words and then get some ngrams
 for generating word counts or to feed into other algorithms, then nanogram is 
 for you. 
 
-
 General Usage
 -------------
 Here's the general idea:
 
-  # Basically just split on whitespace with no sanitizing
-  tokenizer = Nanogram::Tokenizer.new
-  tokenizer.ngrams(1, "Hello! Here are some ngrams.")
-  # => ["Hello!", "Here", "are", "some", "ngrams."] 
-  
-  # A more complex example
-  tokenizer = Nanogram::Tokenizer.new
-  # Setup some sanitizing rules:
-  # Downcase text, replace punctuation with space and strip whitepsace from the ends
-  tokenizer.sanitizer.downcase.gsub(/[^a-z0-9']/,' ').strip
-  # Add some stop words (file from http://www.infochimps.com/datasets/list-of-english-stopwords)
-  tokenizer.filters << Nanogram::Filters::StopWords.load("english_stopwords.tsv")
-  # And filter out 1 character words
-  tokenizer.filters << Nanogram::Filters::Proc.new{|text| text.length == 1}
-  # Generate 1 grams and 2 grams
-  tokenizer.ngrams(1..2, "Hello! Here are some ngrams.")
-  # => ["hello", "here", "ngrams", "hello here", "here ngrams"] 
+    # Basically just split on whitespace with no sanitizing
+    tokenizer = Nanogram::Tokenizer.new
+    tokenizer.ngrams(1, "Hello! Here are some ngrams.")
+    # => ["Hello!", "Here", "are", "some", "ngrams."] 
+    
+    # A more complex example
+    tokenizer = Nanogram::Tokenizer.new
+    # Setup some sanitizing rules:
+    # Downcase text, replace punctuation with space and strip whitepsace from the ends
+    tokenizer.sanitizer.downcase.gsub(/[^a-z0-9']/,' ').strip
+    # Add some stop words (file from http://www.infochimps.com/datasets/list-of-english-stopwords)
+    tokenizer.filters << Nanogram::Filters::StopWords.load("english_stopwords.tsv")
+    # And filter out 1 character words
+    tokenizer.filters << Nanogram::Filters::Proc.new{|text| text.length == 1}
+    # Generate 1 grams and 2 grams
+    tokenizer.ngrams(1..2, "Hello! Here are some ngrams.")
+    # => ["hello", "here", "ngrams", "hello here", "here ngrams"] 
 
 How it works
 ------------
